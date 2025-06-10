@@ -15,7 +15,7 @@ st.set_page_config("Live Landfall Predictor", layout="wide")
 st.title("🌪️ Dự đoán Landfall với Dữ liệu Thời Gian Thực")
 
 # Định nghĩa mapping name → file path
-MODEL_DIR = "models"
+MODEL_DIR = "model"
 model_files = {
     "LSTM+CNN": "lstm_cnn_landfall_model.h5",
     "RNN":      "rnn_landfall_model.h5",
