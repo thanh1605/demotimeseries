@@ -19,7 +19,7 @@ MODEL_DIR = "models"
 model_files = {
     "Model A (LSTM+CNN)": "lstm_cnn_landfall_model.h5",
     "Model B (RNN)":        "rnn_landfall_model.h5",
-    "Model C (CNN only)":   "cnn_landfall_model.h5",
+    "Model C (CNN only)":   "tft_landfall_model.h5",
 }
 
 @st.cache_resource
