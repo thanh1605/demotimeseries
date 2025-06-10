@@ -22,7 +22,7 @@ model_files = {
     "TFT":      "tft_landfall_model.h5",
 }
 
-@st.cache_resource
+
 def load_models():
     models = {}
     for name, fname in model_files.items():
