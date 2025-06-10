@@ -17,20 +17,25 @@ st.title("🌪️ Dự đoán Landfall với Dữ liệu Thời Gian Thực")
 # Định nghĩa mapping name → file path
 MODEL_DIR = "models"
 model_files = {
-    "Model A (LSTM+CNN)": "lstm_cnn_landfall_model.h5",
-    "Model B (RNN)":        "rnn_landfall_model.h5",
-    "Model C (CNN only)":   "tft_landfall_model.h5",
+    "LSTM+CNN": "lstm_cnn_landfall_model.h5",
+    "RNN":      "rnn_landfall_model.h5",
+    "TFT":      "tft_landfall_model.h5",
 }
 
 @st.cache_resource
 def load_models():
     models = {}
-    for display_name, fname in model_files.items():
+    for name, fname in model_files.items():
         path = os.path.join(MODEL_DIR, fname)
-        models[display_name] = tf.keras.models.load_model(path)
+        st.write(f"🔍 Checking {name!r} at {path!r}: exists? {os.path.exists(path)}")
+        try:
+            models[name] = tf.keras.models.load_model(path)
+            st.write(f"✅ Loaded {name!r}")
+        except Exception as e:
+            st.error(f"❌ Failed to load {name!r}: {type(e).__name__}: {e}")
+            # Nếu model quan trọng, có thể st.stop() để dừng app
     return models
 
-# Tải tất cả model lên memory
 models = load_models()
 
 # Sidebar chọn model
