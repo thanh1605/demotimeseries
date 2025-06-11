@@ -22,21 +22,38 @@ model_files = {
     "TFT":      "tft_landfall_model.h5",
 }
 
-@st.cache_resource
+# @st.cache_resource
+# def load_models():
+#     models = {}
+#     for name, fname in model_files.items():
+#         path = os.path.join(MODEL_DIR, fname)
+#         st.write(f"🔍 Checking {name!r} at {path!r}: exists? {os.path.exists(path)}")
+#         try:
+#             models[name] = tf.keras.models.load_model(path)
+#             st.write(f"✅ Loaded {name!r}")
+#         except Exception as e:
+#             st.error(f"❌ Failed to load {name!r}: {type(e).__name__}: {e}")
+#             # Nếu model quan trọng, có thể st.stop() để dừng app
+#     return models
+
+# models = load_models()
+
 def load_models():
     models = {}
-    for name, fname in model_files.items():
+    for display_name, fname in model_files.items():
         path = os.path.join(MODEL_DIR, fname)
-        st.write(f"🔍 Checking {name!r} at {path!r}: exists? {os.path.exists(path)}")
-        try:
-            models[name] = tf.keras.models.load_model(path)
-            st.write(f"✅ Loaded {name!r}")
-        except Exception as e:
-            st.error(f"❌ Failed to load {name!r}: {type(e).__name__}: {e}")
-            # Nếu model quan trọng, có thể st.stop() để dừng app
+        models[display_name] = tf.keras.models.load_model(path)
     return models
 
+# Tải tất cả model lên memory
 models = load_models()
+
+# Sidebar chọn model
+st.sidebar.header("Chọn Model")
+model_name = st.sidebar.selectbox("Bạn muốn dùng model nào?", list(models.keys()))
+
+# Lấy đúng model
+model = models[model_name]
 
 # Sidebar chọn model
 st.sidebar.header("Chọn Model")
